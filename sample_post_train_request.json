@@ -1,0 +1,6 @@
+{
+    "epochs":"25",
+    "batch_size":"32",
+    "model_save_path": "models/autoencoder.h5",
+    "graph_save_path": "plot.png"
+}
