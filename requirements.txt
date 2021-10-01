@@ -1,6 +1,7 @@
 numpy
-tensorflow
-opencv-python
+tensorflow-cpu
+opencv-python-headless
 matplotlib
 sklearn
 flask
+gunicorn

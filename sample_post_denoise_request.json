@@ -1,5 +1,0 @@
-{
-    "img_path":"test_images/test7.png",
-    "model_path":"model/autoencoder.h5",
-    "output_save_path":"output/output.png"
-}
