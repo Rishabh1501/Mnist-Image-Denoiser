@@ -5,7 +5,8 @@ from tensorflow.keras.models import load_model
 import matplotlib.pyplot as plt
 import numpy as np
 import cv2
-
+from urllib.parse import quote
+import base64
 
 class Denoiser():
     
@@ -52,7 +53,7 @@ class Denoiser():
         autoencoder.save(model_save_path, save_format="h5")
     
     @staticmethod
-    def predict_denoiser(img_path,model_path,output_save_path):
+    def predict_denoiser(img_path,model_path,output_save_path=None,save_output=True):
         #preprocessing the image
         img = cv2.imread(img_path,cv2.IMREAD_UNCHANGED)
         img = img.astype("float32") / 255.0
@@ -64,8 +65,10 @@ class Denoiser():
         #prediction
         predict = model.predict(img)
         original = (img[0] * 255).astype("uint8")
-        output = (predict[0]*255).astype("uint8")
-        
-        cv2.imwrite(output_save_path,np.hstack([original,output]))
-        return output
-        
+        denoised_image = (predict[0]*255).astype("uint8")
+        output = np.hstack([original,denoised_image])
+        if save_output and output_save_path:
+            cv2.imwrite(output_save_path,output)
+        ret, buffer = cv2.imencode('.jpg', output)
+        output = base64.b64encode(buffer)
+        return {'img': 'data:image/png;base64,{}'.format(quote(output))}        
