@@ -1,5 +1,5 @@
 numpy
-tensorflow
+tensorflow-cpu
 opencv-python
 matplotlib
 sklearn
